@@ -4,36 +4,55 @@ import { useParams } from "react-router-dom";
 function RecipeDetails() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     async function fetchRecipe() {
-      const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
-      );
+  const response = await fetch(
+    `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+  );
 
-      const data = await response.json();
-      setRecipe(data.meals[0]);
-    }
+  const data = await response.json();
+
+  setRecipe(data.meals[0]);
+
+  const favorites =
+    JSON.parse(localStorage.getItem("favorites")) || [];
+
+  setIsFavorite(
+    favorites.some(
+      (fav) => fav.idMeal === data.meals[0].idMeal
+    )
+  );
+}
 
     fetchRecipe();
   }, [id]);
 
-  function addToFavorites() {
+function toggleFavorite() {
   const favorites =
     JSON.parse(localStorage.getItem("favorites")) || [];
 
-   const exists = favorites.some(
-    (fav) => fav.idMeal === recipe.idMeal
-  );
+  if (isFavorite) {
+    const updated = favorites.filter(
+      (fav) => fav.idMeal !== recipe.idMeal
+    );
 
-  if (!exists) {
+    localStorage.setItem(
+      "favorites",
+      JSON.stringify(updated)
+    );
+
+    setIsFavorite(false);
+  } else {
     favorites.push(recipe);
-    console.log("Tallennettu:", recipe.strMeal);
 
     localStorage.setItem(
       "favorites",
       JSON.stringify(favorites)
     );
+
+    setIsFavorite(true);
   }
 }
 
@@ -45,11 +64,19 @@ function RecipeDetails() {
     <>
       <h1>{recipe.strMeal}</h1>
       <button
-  className="btn btn-success"
-  onClick={addToFavorites}
+  className={
+    isFavorite
+      ? "btn btn-danger"
+      : "btn btn-success"
+  }
+  onClick={toggleFavorite}
 >
-  ❤️ Add to Favorites
+  {isFavorite
+    ? "🗑 Remove from Favorites"
+    : "❤️ Add to Favorites"}
 </button>
+
+
     <div className="recipe-top">
       <img
         className="recipe-image"

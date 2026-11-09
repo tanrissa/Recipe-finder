@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Favorites() {
 
   const favorites =
@@ -9,16 +11,25 @@ function Favorites() {
       <h1>My Favorites</h1>
 
       {favorites.map((recipe) => (
-        <div key={recipe.idMeal}>
-          <img
-            src={recipe.strMealThumb}
-            width="200"
-            alt={recipe.strMeal}
-          />
+  <Link
+    key={recipe.idMeal}
+    to={`/recipe/${recipe.idMeal}`}
+    style={{
+      textDecoration: "none",
+      color: "inherit"
+    }}
+  >
+    <div>
+      <img
+        src={recipe.strMealThumb}
+        width="200"
+        alt={recipe.strMeal}
+      />
 
-          <h2>{recipe.strMeal}</h2>
-        </div>
-      ))}
+      <h2>{recipe.strMeal}</h2>
+    </div>
+  </Link>
+))}
     </>
   );
 }
