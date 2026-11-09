@@ -16,7 +16,7 @@ function Search() {
 
   return (
     <>
-      <h1>Hae reseptejä</h1>
+      <h1>Search recipes</h1>
 
       <input
         type="text"
@@ -25,7 +25,7 @@ function Search() {
       />
 
       <button onClick={searchRecipes}>
-        Hae
+        Search
       </button>
 
       {recipes.map((recipe) => (

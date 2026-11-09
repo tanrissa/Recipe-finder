@@ -11,10 +11,10 @@ function Home() {
         <div className="hero">
         </div>
         <div>
-          <h1>Reseptikirjasto</h1>
+          <h1>Recipe Book</h1>
           <p>
             <em>
-            Tämä on reseptikirjasto, josta voit etsiä ja tallentaa suosikkireseptejäsi. 
+            This is a recipe book where you can search and save your favorite recipes. 
           </em>
           </p>
         </div>
@@ -25,30 +25,32 @@ function Home() {
       <section id="favorites">
          <article className="card mb-3">
           <div className="card-body">
-            <h2>Omat suosikit</h2>
+            <h2>My Favorites</h2>
           <div className="d-flex justify-content-center gap-3 mb-3">
           <img
           src="https://via.placeholder.com/150"
-          alt="Resepti 1"
+          alt="Recipe 1"
           width="150"
           />
 
           <img
           src="https://via.placeholder.com/150"
-          alt="Resepti 2"
+          alt="Recipe 2"
           width="150"
           />
 
           <img
           src="https://via.placeholder.com/150"
-          alt="Resepti 3"
+          alt="Recipe 3"
           width="150"
            />
           </div>
 
+        <Link to="/favorites">
          <button className="btn btn-primary">
-          Tarkastele kaikkia omia suosikkejasi
+          View Favorites
            </button>
+           </Link>
          </div>
         </article>
       </section>
@@ -56,30 +58,30 @@ function Home() {
    <section id="selaa">
          <article className="card mb-3">
           <div className="card-body">
-            <h2>Kaikki reseptit</h2>
+            <h2>All Recipes</h2>
           <div className="d-flex justify-content-center gap-3 mb-3">
           <img
           src="https://via.placeholder.com/150"
-          alt="Resepti 1"
+          alt="Recipe 1"
           width="150"
           />
 
           <img
           src="https://via.placeholder.com/150"
-          alt="Resepti 2"
+          alt="Recipe 2"
           width="150"
           />
 
           <img
           src="https://via.placeholder.com/150"
-          alt="Resepti 3"
+          alt="Recipe 3"
           width="150"
            />
           </div>
 
           <Link to="/search">
             <button className="btn btn-primary">
-             Hae reseptejä
+             Search Recipes
             </button>
           </Link>
          

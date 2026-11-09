@@ -55,3 +55,33 @@ Times, serif;
 font-size: 28px;
 }
 
+.recipe-top {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+ max-width: 1000px;
+  margin: 0 auto;
+  transform: translateX(-80px);
+}
+
+.recipe-image {
+  display: block;
+  margin: 0 auto;
+  width: 450px;
+  max-width: 100%;
+  border-radius: 12px;
+  text-align: left;
+}
+.ingredients {
+  max-width: 350px;
+  text-align: left;
+}
+
+.ingredients ul {
+  padding-left: 20px;
+}
+
+.ingredients li {
+  margin-bottom: 6px;
+}
