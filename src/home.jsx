@@ -1,9 +1,32 @@
-import { useState } from 'react'
 import './App.css'
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function Home() {
-  const [count, setCount] = useState(0)
+  const [randomRecipes, setRandomRecipes] = useState([]);
+const favorites =
+  JSON.parse(localStorage.getItem("favorites")) || [];
+  const favoritePreview = favorites.slice(0, 3);
+
+useEffect(() => {
+  async function fetchRandomRecipes() {
+    const recipes = [];
+
+    for (let i = 0; i < 3; i++) {
+      const response = await fetch(
+        "https://www.themealdb.com/api/json/v1/1/random.php"
+      );
+
+      const data = await response.json();
+      recipes.push(data.meals[0]);
+    }
+
+    setRandomRecipes(recipes);
+  }
+
+  fetchRandomRecipes();
+}, []);
+
 
   return (
     <>
@@ -27,25 +50,15 @@ function Home() {
           <div className="card-body">
             <h2>My Favorites</h2>
           <div className="d-flex justify-content-center gap-3 mb-3">
-          <img
-          src="https://via.placeholder.com/150"
-          alt="Recipe 1"
-          width="150"
-          />
-
-          <img
-          src="https://via.placeholder.com/150"
-          alt="Recipe 2"
-          width="150"
-          />
-
-          <img
-          src="https://via.placeholder.com/150"
-          alt="Recipe 3"
-          width="150"
-           />
-          </div>
-
+          {favoritePreview.map((recipe) => (
+             <img
+                key={recipe.idMeal}
+                src={recipe.strMealThumb}
+                alt={recipe.strMeal}
+                width="150"
+             />
+          ))}
+            </div>
         <Link to="/favorites">
          <button className="btn btn-primary">
           View Favorites
@@ -60,25 +73,15 @@ function Home() {
           <div className="card-body">
             <h2>All Recipes</h2>
           <div className="d-flex justify-content-center gap-3 mb-3">
-          <img
-          src="https://via.placeholder.com/150"
-          alt="Recipe 1"
-          width="150"
-          />
-
-          <img
-          src="https://via.placeholder.com/150"
-          alt="Recipe 2"
-          width="150"
-          />
-
-          <img
-          src="https://via.placeholder.com/150"
-          alt="Recipe 3"
-          width="150"
-           />
+          {randomRecipes.map((recipe) => (
+            <img
+            key={recipe.idMeal}
+            src={recipe.strMealThumb}
+            alt={recipe.strMeal}
+            width="150"
+            />
+            ))}
           </div>
-
           <Link to="/search">
             <button className="btn btn-primary">
              Search Recipes
